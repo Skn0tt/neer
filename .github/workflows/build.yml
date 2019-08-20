@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - uses: actions/checkout@master
     - run: cd neer-backend
     - uses: actions/docker/cli@master
       with:

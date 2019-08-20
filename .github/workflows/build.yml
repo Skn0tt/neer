@@ -18,4 +18,4 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - uses: actions/docker/cli@master
       with:
-        args: push neerapp/backend:${{ GITHUB_REF }}
+        args: push neerapp/backend:${GITHUB_REF}

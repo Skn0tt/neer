@@ -11,7 +11,7 @@ jobs:
     - run: cd neer-backend
     - uses: actions/docker/cli@master
       with:
-        args: build -t neerapp/backend:${{ GITHUB_REF }} .
+        args: build -t neerapp/backend:${GITHUB_REF} .
     - uses: actions/docker/login@master
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}

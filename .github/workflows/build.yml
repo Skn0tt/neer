@@ -10,10 +10,10 @@ jobs:
     steps:
     - run: cd neer-backend
     - uses: actions/docker/cli@master
-      run: build -t neerapp/backend:${{ GITHUB_REF }} .
+      args: build -t neerapp/backend:${{ GITHUB_REF }} .
     - uses: actions/docker/login@master
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - uses: actions/docker/cli@master
-      run: push neerapp/backend:${{ GITHUB_REF }}
+      args: push neerapp/backend:${{ GITHUB_REF }}

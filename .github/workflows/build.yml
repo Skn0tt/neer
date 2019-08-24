@@ -13,7 +13,7 @@ jobs:
     - name: Build neer-backend:${GITHUB_SHA}
       uses: actions/docker/cli@master
       with:
-        args: build -t neerapp/backend -f ./neer-backend/Dockerfile ./neer-backend
+        args: build -t neerapp/backend:${GITHUB_SHA} -f ./neer-backend/Dockerfile ./neer-backend
     - name: Login to Docker Hub
       uses: actions/docker/login@master
       env:

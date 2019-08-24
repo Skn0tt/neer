@@ -10,9 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: actions/docker/cli@master
-      working-directory: neer-backend
       with:
-        args: build -t neerapp/backend:${GITHUB_SHA} .
+        args: build -t neerapp/backend -f ./neer-backend/Dockerfile ./neer-backend
     - uses: actions/docker/login@master
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}

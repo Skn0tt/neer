@@ -8,14 +8,18 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/docker/cli@master
+    - name: Checkout repo
+      uses: actions/checkout@master
+    - name: Build neer-backend:${GITHUB_SHA}
+      uses: actions/docker/cli@master
       with:
         args: build -t neerapp/backend -f ./neer-backend/Dockerfile ./neer-backend
-    - uses: actions/docker/login@master
+    - name: Login to Docker Hub
+      uses: actions/docker/login@master
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - uses: actions/docker/cli@master
+    - name: Push neer-backend:${GITHUB_SHA} to Docker Hub
+      uses: actions/docker/cli@master
       with:
         args: push neerapp/backend:${GITHUB_SHA}

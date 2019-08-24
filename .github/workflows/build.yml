@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@master
-    - name: Build neer-backend:${GITHUB_SHA}
+    - name: Build neer-backend:${{ GITHUB_SHA }}
       uses: actions/docker/cli@master
       with:
         args: build -t neerapp/backend:${GITHUB_SHA} -f ./neer-backend/Dockerfile ./neer-backend
@@ -19,7 +19,7 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Push neer-backend:${GITHUB_SHA} to Docker Hub
+    - name: Push neer-backend:${{ GITHUB_SHA }} to Docker Hub
       uses: actions/docker/cli@master
       with:
         args: push neerapp/backend:${GITHUB_SHA}

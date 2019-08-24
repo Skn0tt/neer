@@ -9,8 +9,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@master
-    - run: cd neer-backend
     - uses: actions/docker/cli@master
+      working-directory: neer-backend
       with:
         args: build -t neerapp/backend:${GITHUB_SHA} .
     - uses: actions/docker/login@master

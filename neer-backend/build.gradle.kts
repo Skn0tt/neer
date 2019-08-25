@@ -72,6 +72,7 @@ val integrationTest = task<Test>("integrationTest") {
     classpath = sourceSets["integrationTest"].runtimeClasspath
     shouldRunAfter("test")
     dependsOn(devComposeUp)
+    environment("API_BASE_URI", "http://localhost:3000")
 }
 
 val check by tasks

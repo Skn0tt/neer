@@ -6,9 +6,8 @@ abstract class RestAssuredTestSuite {
     companion object {
         @BeforeClass
         @JvmStatic
-        fun startServer() {
-            RestAssured.baseURI = "http://localhost"
-            RestAssured.port = 3000
+        fun setup() {
+            RestAssured.baseURI = System.getenv("API_BASE_URI") ?: throw IllegalArgumentException("API_BASE_URI is required env var")
         }
     }
 

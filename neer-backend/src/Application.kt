@@ -7,14 +7,14 @@ import io.ktor.locations.*
 import io.ktor.features.*
 import io.ktor.auth.*
 import io.ktor.jackson.*
+import io.ktor.response.respondText
 import org.slf4j.event.*
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 @KtorExperimentalLocationsAPI
 @Suppress("unused") // Referenced in application.conf
-@kotlin.jvm.JvmOverloads
-fun Application.module(testing: Boolean = false) {
+fun Application.module() {
 
     install(Locations)
 
@@ -40,6 +40,8 @@ fun Application.module(testing: Boolean = false) {
     }
 
     routing {
-
+        get("/") {
+            call.respondText("Hello World")
+        }
     }
 }

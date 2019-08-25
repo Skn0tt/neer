@@ -1,0 +1,8 @@
+FROM openjdk:11.0.4-jre
+
+WORKDIR /app
+
+COPY ./build/libs /app/
+
+EXPOSE 3000
+CMD java -jar /app/backend-*.jar

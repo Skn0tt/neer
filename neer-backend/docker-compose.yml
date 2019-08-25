@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+
+  neer-backend:
+    image: neerapp/backend
+    build:
+        context: .
+        dockerfile: Dockerfile
+    depends_on:
+      - redis
+    environment:
+      REDIS_HOST: redis
+    ports:
+      - 3000:3000
+
+  redis:
+    image: redis:5.0.5

@@ -5,6 +5,8 @@ val logback_version: String by project
 plugins {
     application
     kotlin("jvm") version "1.3.41"
+    id("com.github.johnrengelman.shadow") version "4.0.4"
+    id("com.avast.gradle.docker-compose") version "0.9.4"
 }
 
 group = "de.simonknott.neer"
@@ -13,6 +15,31 @@ version = "0.0.1"
 application {
     mainClassName = "io.ktor.server.netty.EngineMain"
 }
+
+tasks.withType<Jar> {
+    manifest {
+        attributes(
+            mapOf(
+                "Main-Class" to application.mainClassName
+            )
+        )
+    }
+}
+
+dockerCompose {
+    useComposeFiles = listOf("docker-compose.yml")
+    buildBeforeUp = false
+    createNested("dev").apply {
+        useComposeFiles = listOf("docker-compose.yml", "docker-compose.dev.yml")
+        buildBeforeUp = false
+    }
+}
+
+val devComposeBuild by tasks
+val devComposeUp by tasks
+val shadowJar by tasks
+devComposeBuild.dependsOn(shadowJar)
+devComposeUp.dependsOn(devComposeBuild)
 
 repositories {
     mavenLocal()
@@ -42,7 +69,5 @@ kotlin.sourceSets["main"].kotlin.srcDirs("src")
 kotlin.sourceSets["test"].kotlin.srcDirs("test")
 sourceSets["main"].java.srcDirs("src")
 sourceSets["test"].java.srcDirs("test")
-
-
 sourceSets["main"].resources.srcDirs("resources")
 sourceSets["test"].resources.srcDirs("testresources")

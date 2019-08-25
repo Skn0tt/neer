@@ -1,9 +1,12 @@
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
 
 plugins {
     application
+    idea
     kotlin("jvm") version "1.3.41"
     id("com.github.johnrengelman.shadow") version "4.0.4"
     id("com.avast.gradle.docker-compose") version "0.9.4"
@@ -41,6 +44,42 @@ val shadowJar by tasks
 devComposeBuild.dependsOn(shadowJar)
 devComposeUp.dependsOn(devComposeBuild)
 
+sourceSets {
+    create("integrationTest") {
+        withConvention(KotlinSourceSet::class) {
+            kotlin.srcDir("integrationTest")
+            compileClasspath += sourceSets["main"].output + sourceSets["test"].output
+            runtimeClasspath += sourceSets["main"].output + sourceSets["test"].output
+        }
+    }
+}
+
+configurations["integrationTestImplementation"].extendsFrom(configurations.implementation)
+configurations["integrationTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly)
+
+kotlin.sourceSets["main"].kotlin.srcDirs("src")
+kotlin.sourceSets["test"].kotlin.srcDirs("test")
+sourceSets["main"].java.srcDirs("src")
+sourceSets["test"].java.srcDirs("test")
+sourceSets["main"].resources.srcDirs("resources")
+sourceSets["test"].resources.srcDirs("testresources")
+
+val integrationTest = task<Test>("integrationTest") {
+    description = "Runs integration tests."
+    group = "verification"
+
+    testClassesDirs = sourceSets["integrationTest"].output.classesDirs
+    classpath = sourceSets["integrationTest"].runtimeClasspath
+    shouldRunAfter("test")
+    dependsOn(devComposeUp)
+}
+
+val check by tasks
+check.dependsOn(integrationTest)
+
+configurations["integrationTestCompile"].extendsFrom(configurations["testCompile"])
+configurations["integrationTestRuntime"].extendsFrom(configurations["testRuntime"])
+
 repositories {
     mavenLocal()
     jcenter()
@@ -60,14 +99,8 @@ dependencies {
     compile("io.ktor:ktor-jackson:$ktor_version")
     testCompile("io.ktor:ktor-server-tests:$ktor_version")
 
+    testCompile("io.rest-assured:rest-assured:4.0.0")
     compile("com.github.grumlimited:geocalc:0.5.7")
     compile("com.googlecode.libphonenumber:libphonenumber:8.10.16")
     compile("redis.clients:jedis:3.1.0")
 }
-
-kotlin.sourceSets["main"].kotlin.srcDirs("src")
-kotlin.sourceSets["test"].kotlin.srcDirs("test")
-sourceSets["main"].java.srcDirs("src")
-sourceSets["test"].java.srcDirs("test")
-sourceSets["main"].resources.srcDirs("resources")
-sourceSets["test"].resources.srcDirs("testresources")

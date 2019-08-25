@@ -1,7 +1,10 @@
 /.gradle
-/.idea
 /out
 /build
-*.iml
 *.ipr
 *.iws
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/tasks.xml
+.idea/shelf
+

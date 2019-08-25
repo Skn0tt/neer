@@ -1,8 +1,9 @@
-FROM openjdk:11.0.4-jre
+FROM openjdk:12.0.2
 
 WORKDIR /app
 
 COPY ./build/libs /app/
 
 EXPOSE 3000
-CMD java -jar /app/backend-*.jar
+EXPOSE 8000
+CMD java "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000" -jar /app/backend-*.jar

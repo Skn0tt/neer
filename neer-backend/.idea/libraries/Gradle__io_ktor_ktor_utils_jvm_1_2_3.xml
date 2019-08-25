@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.ktor:ktor-utils-jvm:1.2.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-utils-jvm/1.2.3/aeb756cd608b88e390b80d4aa1c6efddc80d7a98/ktor-utils-jvm-1.2.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-utils-jvm/1.2.3/43d2f303c86a5fff946b557f35b9998f4b4b57db/ktor-utils-jvm-1.2.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

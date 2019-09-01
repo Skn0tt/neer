@@ -3,10 +3,28 @@ name: Build
 on: [push]
 
 jobs:
-  build_backend:
 
+  unit_test_backend:
     runs-on: ubuntu-latest
-    
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@master
+    - name: Run unit tests
+      run: |
+        ./gradlew test
+        
+  integration_test_backend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@master
+    - name: Run integration tests
+      run: |
+        ./gradlew integrationTest
+  
+  build_backend:
+    runs-on: ubuntu-latest
+    needs: [ unit_test_backend, integration_test_backend ]
     steps:
     - name: Checkout repo
       uses: actions/checkout@master

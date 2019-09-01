@@ -1,5 +1,6 @@
 package de.simonknott.neer
 
+import de.simonknott.neer.users.users
 import io.ktor.application.*
 import io.ktor.request.*
 import io.ktor.routing.*
@@ -42,6 +43,10 @@ fun Application.module() {
     routing {
         get("/") {
             call.respondText("Hello World")
+        }
+
+        route("/users") {
+            users()
         }
     }
 }

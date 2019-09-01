@@ -12,9 +12,11 @@ object UserRepositoryInMemoryImpl : UserRepository {
 
     override suspend fun getUser(user: UserId): User? = users[user]?.toUser(user)
 
-    override suspend fun deleteUser(user: UserId) {
-        users.remove(user)
+    override suspend fun createUser(user: User) {
+        users[user.id] = UserRecord(user.phoneNumber)
     }
+
+    override suspend fun deleteUser(user: UserId) = users.remove(user)?.toUser(user)
 
     override suspend fun setPhoneNumber(user: UserId, phoneNumber: PhoneNumber) {
         users.update(user, { it?.copy(phoneNumber = phoneNumber) })

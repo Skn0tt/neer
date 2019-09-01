@@ -10,6 +10,7 @@ plugins {
     kotlin("jvm") version "1.3.41"
     id("com.github.johnrengelman.shadow") version "4.0.4"
     id("com.avast.gradle.docker-compose") version "0.9.4"
+    id("com.google.cloud.tools.jib") version "1.5.0"
 }
 
 group = "de.simonknott.neer"
@@ -29,6 +30,22 @@ tasks.withType<Jar> {
     }
 }
 
+jib {
+    from {
+        image = "gcr.io/distroless/java:11"
+    }
+    to {
+        image = "neerapp/backend"
+    }
+    container {
+        jvmFlags = listOf(
+            "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
+        )
+        ports = listOf("3000", "8000")
+    }
+}
+
+
 dockerCompose {
     useComposeFiles = listOf("docker-compose.yml")
     buildBeforeUp = false
@@ -38,11 +55,9 @@ dockerCompose {
     }
 }
 
-val devComposeBuild by tasks
+val jibDockerBuild by tasks
 val devComposeUp by tasks
-val shadowJar by tasks
-devComposeBuild.dependsOn(shadowJar)
-devComposeUp.dependsOn(devComposeBuild)
+devComposeUp.dependsOn(jibDockerBuild)
 
 sourceSets {
     create("integrationTest") {

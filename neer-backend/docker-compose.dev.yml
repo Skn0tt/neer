@@ -3,10 +3,11 @@ version: "3.7"
 services:
 
   neer-backend:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
     ports:
       - 8000:8000
     volumes:
       - ./build/libs/:/src/build/libs/
+
+  redis:
+    ports:
+      - 6379:6379

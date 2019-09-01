@@ -11,7 +11,9 @@ interface UserRepository {
 
     suspend fun getUser(user: UserId): User?
 
-    suspend fun deleteUser(user: UserId)
+    suspend fun createUser(user: User)
+
+    suspend fun deleteUser(user: UserId): User?
 
     suspend fun setPhoneNumber(user: UserId, phoneNumber: PhoneNumber)
 

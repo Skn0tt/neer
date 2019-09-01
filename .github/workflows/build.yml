@@ -11,15 +11,5 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@master
     - name: Build neer-backend
-      uses: actions/docker/cli@master
-      with:
-        args: build -t neerapp/backend:${GITHUB_SHA} -f ./neer-backend/Dockerfile ./neer-backend
-    - name: Login to Docker Hub
-      uses: actions/docker/login@master
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Push neer-backend to Docker Hub
-      uses: actions/docker/cli@master
-      with:
-        args: push neerapp/backend:${GITHUB_SHA}
+      run: |
+        cd neer-backend && ./gradlew jib -Djib.to.image=neerapp/backend:${GITHUB_SHA} -Djib.to.auth.username=${{ secrets.DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.DOCKER_PASSWORD }}

@@ -11,6 +11,7 @@ jobs:
       uses: actions/checkout@master
     - name: Run unit tests
       run: |
+        cd neer-backend
         ./gradlew test
         
   integration_test_backend:
@@ -20,6 +21,7 @@ jobs:
       uses: actions/checkout@master
     - name: Run integration tests
       run: |
+        cd neer-backend
         ./gradlew integrationTest
   
   build_backend:
@@ -30,4 +32,8 @@ jobs:
       uses: actions/checkout@master
     - name: Build neer-backend
       run: |
-        cd neer-backend && ./gradlew jib -Djib.to.image=neerapp/backend:${GITHUB_SHA} -Djib.to.auth.username=${{ secrets.DOCKER_USERNAME }} -Djib.to.auth.password=${{ secrets.DOCKER_PASSWORD }}
+        cd neer-backend
+        ./gradlew jib \
+          -Djib.to.image=neerapp/backend:${GITHUB_SHA} \
+          -Djib.to.auth.username=${{ secrets.DOCKER_USERNAME }} \
+          -Djib.to.auth.password=${{ secrets.DOCKER_PASSWORD }}

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.rest-assured:kotlin-extensions:4.1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.rest-assured/kotlin-extensions/4.1.0/e24d683932be0211c8ed81e43e372c36ccd79244/kotlin-extensions-4.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.rest-assured/kotlin-extensions/4.1.0/d6b686b1a33a9a767e5b503c3e600d2548988ea8/kotlin-extensions-4.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

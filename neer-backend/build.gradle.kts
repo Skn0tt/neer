@@ -116,6 +116,7 @@ dependencies {
     testCompile("io.ktor:ktor-server-tests:$ktor_version")
 
     testCompile("io.rest-assured:rest-assured:4.0.0")
+    testCompile("io.rest-assured:kotlin-extensions:4.1.0")
     compile("com.github.grumlimited:geocalc:0.5.7")
     compile("com.googlecode.libphonenumber:libphonenumber:8.10.16")
     compile("redis.clients:jedis:3.1.0")

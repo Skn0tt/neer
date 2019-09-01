@@ -22,7 +22,8 @@ class PhoneNumber private constructor(private val number: com.google.i18n.phonen
         private fun parseToLibphonenumber(number: String): com.google.i18n.phonenumbers.Phonenumber.PhoneNumber? {
             return try {
                 val proto = util.parse(number, null)
-                if (util.isValidNumber(proto)) proto else null
+                val isValid = util.isValidNumber(proto)
+                if (isValid) proto else null
             } catch (e: NumberParseException) {
                 null
             }

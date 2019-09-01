@@ -8,8 +8,20 @@ import kotlin.test.assertNull
 class PhoneNumberTest {
 
     @Test()
-    fun testValidNumber() {
+    fun testValidGermanNumber() {
         val pn = PhoneNumber.fromString("+49 1573 1451423")
+        assertNotNull(pn, "number is valid")
+    }
+
+    @Test()
+    fun testInvalidEnglishNumber() {
+        val pn = PhoneNumber.fromString("+44 7700 900728")
+        assertNull(pn, "number is not valid")
+    }
+
+    @Test()
+    fun testValidAustralianNumber() {
+        val pn = PhoneNumber.fromString("+1-613-555-0117")
         assertNotNull(pn, "number is valid")
     }
 

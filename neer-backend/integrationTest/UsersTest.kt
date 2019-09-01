@@ -23,7 +23,7 @@ class UsersTest : RestAssuredTestSuite() {
     @Test()
     fun testValidPhoneNumber() {
         Given {
-            body("""{ "phoneNumber": "+44 7700 900728" }""")
+            body("""{ "phoneNumber": "+1-613-555-0117" }""")
             contentType(ContentType.JSON)
         } When {
             post("/users")

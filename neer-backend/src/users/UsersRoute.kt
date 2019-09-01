@@ -13,6 +13,8 @@ import io.ktor.response.respond
 import io.ktor.routing.Route
 import io.ktor.routing.post
 
+data class RegisterResponse(val userId: String, val refreshToken: String?)
+
 object UsersRoute {
 
     private val userRepository = UserRepository.get()
@@ -28,7 +30,6 @@ object UsersRoute {
     }
 
     suspend fun registerUser(phoneNumber: String?, call: ApplicationCall) {
-        data class RegisterResponse(val userId: String, val refreshToken: String?)
         val newUserId = UserIdGenerator.next()
 
         if (phoneNumber != null) {
@@ -48,6 +49,8 @@ object UsersRoute {
 
 }
 
+data class RegisterBody(val phoneNumber: String?)
+
 @KtorExperimentalLocationsAPI
 fun Route.users() {
 
@@ -60,7 +63,6 @@ fun Route.users() {
 
 
     post("/") {
-        data class RegisterBody(val phoneNumber: String?)
         val body = call.receive<RegisterBody>()
         UsersRoute.registerUser(body.phoneNumber, call)
     }

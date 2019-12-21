@@ -120,4 +120,5 @@ dependencies {
     compile("com.github.grumlimited:geocalc:0.5.7")
     compile("com.googlecode.libphonenumber:libphonenumber:8.10.16")
     compile("redis.clients:jedis:3.1.0")
+    compile("com.twilio.sdk:twilio:7.41.2")
 }

@@ -17,4 +17,9 @@ object Config {
 
     val USER_ID_LENGTH = Integer.parseInt(System.getenv("USER_ID_LENGTH") ?: "4")
 
+    enum class SMSTransport {
+        TWILIO
+    }
+    val SMS_TRANSPORT = SMSTransport.valueOf((System.getenv("SMS_TRANSPORT") ?: "TWILIO").toUpperCase())
+
 }

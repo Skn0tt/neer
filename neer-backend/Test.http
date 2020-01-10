@@ -1,0 +1,12 @@
+### Register Account
+POST localhost:3000/createAccount
+
+andy:myrandomtoken:ENGLISH
+
+### Get Friendlist
+GET localhost:3000/friends
+
+### Status
+GET localhost:3000/status
+
+###

@@ -1,0 +1,1 @@
+typealias UserID = String
